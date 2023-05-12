@@ -5,6 +5,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 TextEditingController _query= new TextEditingController();
+double _height = 150.0;
+double _weight = 50.0;
+double _age= 40.0;
 class GenderCheckbox extends StatefulWidget {
   @override
   _GenderCheckboxState createState() => _GenderCheckboxState();
@@ -61,57 +64,50 @@ class NextScreen extends StatefulWidget {
 class _NextScreenState extends State<NextScreen> {
   TextEditingController _controller=TextEditingController();
   void _sendMessage() async {
-    if (_controller.text.isEmpty) return;
-    setState(() {
-      _messages.insert(0, _controller.text);
-    });
 
 
-    Uri url = Uri.parse('https://chatgym.onrender.com/?msg=${_controller.text}');
+
+
+    Uri url = Uri.parse('https://chatgym.onrender.com/?msg=${_height.toString()}');
     print(url.toString());
     http.Response response = await http.get(url);
     print(response.body);
     Map<String,dynamic>json= jsonDecode(response.body);
     print(json.toString());
+    String res= json['reply'];
     _messages.insert(0, json["reply"]);
     _controller.clear();
     setState(() {
 
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return  AlertDialog(
+            backgroundColor: Colors.black,
+            title: Text('Here is Your Plan',
+              style: TextStyle(color: Colors.white),
+
+            ),
+            content: Text(res,
+              style: TextStyle(color: Colors.white),),
+            actions: [
+              TextButton(
+                child: Text('OK',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     });
 
 
   }
-  Widget _buildTextComposer() {
-    return Row(
-      children: [
-        Expanded(
-          child: TextField(
-            controller: _controller,
-            onSubmitted: (value) => _sendMessage(),
-            decoration: const InputDecoration.collapsed(
-                hintText: "Enter your height and weight to know gym plan"),
-          ),
-        ),
-        ButtonBar(
-          children: [
-            IconButton(
-              icon: const Icon(Icons.send,
 
-
-              ),
-              onPressed: () {
-                _sendMessage();
-              },
-            ),
-
-          ],
-        ),
-      ],
-    );
-  }
-  double _height = 150.0;
-  double _weight = 50.0;
-  double _age= 40.0;
   final List<String> _messages=[];
   @override
   Widget build(BuildContext context) {
@@ -188,74 +184,38 @@ class _NextScreenState extends State<NextScreen> {
               style: TextStyle(fontSize: 24.0),
             ),
             GenderCheckbox(),
-            SizedBox(height: 20,),
-            Text(
-              'Enter dish name to get Recipe',
-              style: TextStyle(fontSize: 14.0),
-            ),
-            TextFormField(
-              controller: _query,
-            ),
             SizedBox(height: 100,),
-            ElevatedButton(
-              style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                  ),
-                fixedSize:  MaterialStateProperty.all(
+           ElevatedButton(
+
+
+            onPressed: _sendMessage,
+
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+              fixedSize:  MaterialStateProperty.all(
                   Size(400, 70)
-                ),
-                elevation: MaterialStateProperty.resolveWith((states) => 10),
-
-                backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                      (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.hovered) || states.contains(MaterialState.pressed)) {
-                      return Colors.blue;
-                    }
-                    return Colors.lightGreen;
-                  },
-                ),
               ),
-              onPressed:() async
-              {
-                final res= await Api.exercise(_query.text);
-                setState(() {
+              elevation: MaterialStateProperty.resolveWith((states) => 10),
 
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return  AlertDialog(
-                        backgroundColor: Colors.black,
-                        title: Text(res.elementAt(0)['title'],
-                        style: TextStyle(color: Colors.white),
-
-                        ),
-                        content: Text(res.elementAt(0)['ingredients'],
-                          style: TextStyle(color: Colors.white),),
-                        actions: [
-                          TextButton(
-                            child: Text('OK',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                });
-                print(res.elementAt(0).toString());
-
-
-              },
-              child: Text('Get Recipe curated for You!',
+              backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.hovered) || states.contains(MaterialState.pressed)) {
+                    return Colors.blue;
+                  }
+                  return Colors.lightGreen;
+                },
               ),
-
             ),
+            child: Text(
+                'Get Plan Curated for you'
+            )
+
+
+        ),
           ],
         ),
       ),

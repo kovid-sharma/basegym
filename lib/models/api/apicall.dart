@@ -88,4 +88,50 @@ class Api {
 
     }
   }
+
+
+
+  static Future<List<dynamic>> exercise2(String query) async{
+    Uri url = Uri.parse('https://api.api-ninjas.com/v1/caloriesburned?activity=$query');
+
+    http.Response response = await http.get(url,headers: {'X-Api-Key': 'Q7ajSyy7P4DxznWf+R+QCA==iSMJT1Rx7yFZVHqo'});
+    log('ejfne');
+    if (response.statusCode == 200) {
+      log('frjn');
+      List<dynamic>json= jsonDecode(response.body);
+      return json;
+      log('dbf');
+    } else {
+      List<dynamic>emp=[];
+      print("error in getting data");
+      return emp;
+
+    }
+  }
+
+
+
+
+
+  static Future<List<dynamic>> exercise3(String query) async{
+    Uri url = Uri.parse('https://api.api-ninjas.com/v1/nutrition?query=$query');
+
+    http.Response response = await http.get(url,headers: {'X-Api-Key': 'Q7ajSyy7P4DxznWf+R+QCA==iSMJT1Rx7yFZVHqo'});
+    log('ejfne');
+    if (response.statusCode == 200) {
+      log('frjn');
+      List<dynamic>json= jsonDecode(response.body);
+      return json;
+      log('dbf');
+    } else {
+      List<dynamic>emp=[];
+      print("error in getting data");
+      return emp;
+
+    }
+  }
 }
+
+
+
+

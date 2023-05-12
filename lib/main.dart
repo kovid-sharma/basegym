@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'bmicalc.dart';
 import 'caloriecalc.dart';
+import 'gethealthy.dart';
 import 'nextScreen.dart';
 
 void main() {
@@ -187,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 // add your button logic here
                                 Navigator.push(
                                               context,
-                                    MaterialPageRoute(builder: (context) => NextScreen())
+                                    MaterialPageRoute(builder: (context) => GetHealthy())
                                 );
                               },
                               child: Text('Get Healthy'),
@@ -236,9 +237,39 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
-                    SizedBox(height: 40,),
+                    SizedBox(height: 20,),
 
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                        ),
+                        fixedSize:  MaterialStateProperty.all(
+                            Size(200, 40)
+                        ),
+                        elevation: MaterialStateProperty.resolveWith((states) => 10),
 
+                        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                              (Set<MaterialState> states) {
+                            if (states.contains(MaterialState.hovered) || states.contains(MaterialState.pressed)) {
+                              return Colors.blue;
+                            }
+                            return Colors.lightGreen;
+                          },
+                        ),
+                      ),
+                      onPressed: () {
+                        // add your button logic here
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => NextScreen())
+                        );
+                      },
+                      child: Text('GET YOUR PLAN'),
+                    ),
+                    SizedBox(height: 10,),
                     Text(
                       'College Project',
                       style: TextStyle(
