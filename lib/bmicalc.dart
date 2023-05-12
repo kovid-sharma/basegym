@@ -21,7 +21,9 @@ class _bmicalcState extends State<bmicalc> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Your BMI'),
+            title: Image.asset(
+              'images/38988614.jpg'
+            ),
             content: Text('Your BMI is ${bmi.toStringAsFixed(1)}.'),
             actions: [
               TextButton(
@@ -88,6 +90,26 @@ class _bmicalcState extends State<bmicalc> {
             ),
             SizedBox(height: 50.0),
             ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                ),
+                fixedSize:  MaterialStateProperty.all(
+                    Size(200, 50)
+                ),
+                elevation: MaterialStateProperty.resolveWith((states) => 2),
+
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.hovered) || states.contains(MaterialState.pressed)) {
+                      return Colors.blue;
+                    }
+                    return Colors.lightGreen;
+                  },
+                ),
+              ),
               onPressed: _calculateBMI,
               child: Text('Calculate BMI'),
             ),

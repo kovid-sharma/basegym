@@ -11,6 +11,7 @@ class _exerciseState extends State<exercise> {
   final List<String> _backExercises = ['Pull-ups', 'Barbell Rows', 'Lat Pulldown', 'Deadlifts'];
   final List<String> _legExercises = ['Squats', 'Leg Press', 'Lunges', 'Deadlifts'];
   final List<String> _armExercises = ['Bicep Curls', 'Tricep Extensions', 'Hammer Curls', 'Skull Crushers'];
+  final List<String> _shoulderExercises = ['Shoulder Curls', 'Tricep Extensions', 'Hammer Curls', 'Over Shoulder Bars'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,9 +23,10 @@ class _exerciseState extends State<exercise> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text('Tap On the Tile to Know Exercises for MUSCLE GROUP',
+          Text('MUSCLE GROUP Information',
 
           style: TextStyle(
+            color: Colors.black45,
             fontSize: 15,
             fontWeight: FontWeight.bold
           ),
@@ -37,6 +39,7 @@ class _exerciseState extends State<exercise> {
             title: Center(
               child: Text('Chest',
            style: TextStyle(
+
                fontWeight: FontWeight.bold,
                fontSize: 25,
            ),
@@ -92,6 +95,31 @@ class _exerciseState extends State<exercise> {
           Divider(
             thickness: 4,
           ),
+          ListTile(
+            title: Center(
+              child: Text('Shoulder',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                ),
+              ),
+            ),
+            onTap: () => _showExercises(context, _shoulderExercises),
+          ),
+          Divider(
+            thickness: 4,
+          ),
+          ListTile(
+            title: Center(
+              child: Text('Traps',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                ),
+              ),
+            ),
+            onTap: () => _showExercises(context, _shoulderExercises),
+          ),
 
         ],
       ),
@@ -103,7 +131,13 @@ class _exerciseState extends State<exercise> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Exercises'),
+          backgroundColor: Colors.black,
+          title: Text('Exercises',
+
+          style: TextStyle(
+            color: Colors.white
+          ),
+          ),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -111,7 +145,11 @@ class _exerciseState extends State<exercise> {
               children: exercises
                   .map((exercise) => Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(exercise),
+                child: Text(exercise,
+                style: TextStyle(
+                  color: Colors.white
+                ),
+                ),
               ))
                   .toList(),
             ),
@@ -119,7 +157,12 @@ class _exerciseState extends State<exercise> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Close'),
+              child: Text('Ok',
+
+              style: TextStyle(
+                color: Colors.white
+              ),
+              ),
             ),
           ],
         );
