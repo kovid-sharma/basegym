@@ -189,7 +189,10 @@ class _NextScreenState extends State<NextScreen> {
             ),
             GenderCheckbox(),
             SizedBox(height: 20,),
-
+            Text(
+              'Enter dish name to get Recipe',
+              style: TextStyle(fontSize: 14.0),
+            ),
             TextFormField(
               controller: _query,
             ),
@@ -202,9 +205,9 @@ class _NextScreenState extends State<NextScreen> {
                     ),
                   ),
                 fixedSize:  MaterialStateProperty.all(
-                  Size(200, 50)
+                  Size(400, 70)
                 ),
-                elevation: MaterialStateProperty.resolveWith((states) => 2),
+                elevation: MaterialStateProperty.resolveWith((states) => 10),
 
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
                       (Set<MaterialState> states) {
@@ -224,11 +227,18 @@ class _NextScreenState extends State<NextScreen> {
                     context: context,
                     builder: (BuildContext context) {
                       return  AlertDialog(
-                        title: Text(res.elementAt(0)['title']),
-                        content: Text(res.elementAt(0)['ingredients']),
+                        backgroundColor: Colors.black,
+                        title: Text(res.elementAt(0)['title'],
+                        style: TextStyle(color: Colors.white),
+
+                        ),
+                        content: Text(res.elementAt(0)['ingredients'],
+                          style: TextStyle(color: Colors.white),),
                         actions: [
                           TextButton(
-                            child: Text('OK'),
+                            child: Text('OK',
+                              style: TextStyle(color: Colors.white),
+                            ),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
