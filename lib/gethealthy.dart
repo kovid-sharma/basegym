@@ -2,7 +2,7 @@ import 'models/api/apicall.dart';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
 TextEditingController _query= new TextEditingController();
 TextEditingController _query1= new TextEditingController();
 TextEditingController _query2= new TextEditingController();
