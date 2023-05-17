@@ -8,6 +8,15 @@ TextEditingController _query= new TextEditingController();
 double _height = 150.0;
 double _weight = 50.0;
 double _age= 40.0;
+
+
+String p1="";
+String p2="";
+String p3="";
+String p4="";
+String p5="";
+String p6="";
+String p7="";
 class GenderCheckbox extends StatefulWidget {
   @override
   _GenderCheckboxState createState() => _GenderCheckboxState();
@@ -66,8 +75,37 @@ class _NextScreenState extends State<NextScreen> {
   void _sendMessage() async {
 
 
-
-
+    double heightInMeters = _height / 100;
+    double bmi = _weight / (heightInMeters * heightInMeters);
+    print(bmi);
+    String ans='Plans';
+    if(bmi<18.5){
+      ans=p1;
+    }
+    else if(bmi>=18.5 && bmi<20)
+      {
+        ans=p2;
+      }
+    else if(bmi>=20 && bmi<21.5)
+    {
+      ans=p3;
+    }
+    else if(bmi>=21.5 && bmi<23)
+    {
+      ans=p3;
+    }
+    else if(bmi>=23 && bmi<24.5)
+    {
+      ans=p5;
+    }
+    else if(bmi>=24.5 && bmi<26)
+    {
+      ans=p6;
+    }
+    else
+    {
+      ans=p7;
+    }
     Uri url = Uri.parse('https://chatgym.onrender.com/?msg=${_height.toString()}');
     print(url.toString());
     http.Response response = await http.get(url);
@@ -88,7 +126,7 @@ class _NextScreenState extends State<NextScreen> {
               style: TextStyle(color: Colors.white),
 
             ),
-            content: Text(res,
+            content: Text(ans,
               style: TextStyle(color: Colors.white),),
             actions: [
               TextButton(

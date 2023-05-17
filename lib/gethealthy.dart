@@ -14,7 +14,6 @@ class GenderCheckbox extends StatefulWidget {
 class _GenderCheckboxState extends State<GenderCheckbox> {
   bool _maleSelected = false;
   bool _femaleSelected = false;
-
   @override
   Widget build(BuildContext context) {
     return Row(
