@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 Quotes quotesFromJson(String str) => Quotes.fromJson(json.decode(str));

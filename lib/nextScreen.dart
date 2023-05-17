@@ -10,7 +10,10 @@ double _weight = 50.0;
 double _age= 40.0;
 
 
-String p1="";
+String p1="Day1:\n"
+    "Warm up: 5 minutes of light cardio (e.g., brisk walking)"
+    "Strength training:\nSquats: 3 sets of 10 reps\nDumbbell chest press: 3 sets of 10 reps\nBent-over rows: 3 sets of 10 reps\nDumbbell shoulder press: 3 sets of 10 reps\nPlank: Hold for 30 seconds, repeat 3 times\nCool down: 5 minutes of stretching exercises focusing on the legs, chest, back, and shoulders.\nDay 2:";
+
 String p2="";
 String p3="";
 String p4="";
@@ -79,6 +82,7 @@ class _NextScreenState extends State<NextScreen> {
     double bmi = _weight / (heightInMeters * heightInMeters);
     print(bmi);
     String ans='Plans';
+
     if(bmi<18.5){
       ans=p1;
     }
@@ -120,24 +124,26 @@ class _NextScreenState extends State<NextScreen> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return  AlertDialog(
-            backgroundColor: Colors.black,
-            title: Text('Here is Your Plan',
-              style: TextStyle(color: Colors.white),
+          return  SingleChildScrollView(
+            child: AlertDialog(
+              backgroundColor: Colors.black,
+              title: Text('Here is Your Plan',
+                style: TextStyle(color: Colors.white),
 
-            ),
-            content: Text(ans,
-              style: TextStyle(color: Colors.white),),
-            actions: [
-              TextButton(
-                child: Text('OK',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
               ),
-            ],
+              content: Text(ans,
+                style: TextStyle(color: Colors.white),),
+              actions: [
+                TextButton(
+                  child: Text('OK',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
           );
         },
       );
